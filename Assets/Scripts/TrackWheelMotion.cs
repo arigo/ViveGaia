@@ -32,8 +32,7 @@ public class TrackWheelMotion : MonoBehaviour {
     {
         if (tracking)
         {
-            var device = SteamVR_Controller.Input((int)controller.controllerIndex);
-            float new_position = device.GetAxis().y;
+            float new_position = controller.controllerState.rAxis0.y;
             float delta = new_position - prev_position;
             star_material.SetFloat("_LightFactor", star_material.GetFloat("_LightFactor") * Mathf.Pow(2f, delta));
             prev_position = new_position;

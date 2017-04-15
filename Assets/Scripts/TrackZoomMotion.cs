@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrackZoomMotion : MonoBehaviour {
 
     public Transform starScene;
+    public bool trackRotations;
 
     SteamVR_TrackedController controller;
     bool tracking;
@@ -36,7 +37,13 @@ public class TrackZoomMotion : MonoBehaviour {
             Vector3 new_position = transform.position;
             float factor = (new_position - center).magnitude / (prev_position - center).magnitude;
             starScene.localScale *= factor;
+
+            if (trackRotations)
+            {
+                Quaternion q = Quaternion.FromToRotation(prev_position - center, new_position - center);
+                starScene.localRotation *= q;
+            }
             prev_position = new_position;
         }
-	}
+    }
 }
